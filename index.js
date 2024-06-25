@@ -1,17 +1,20 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const userRoutes = require('./src/routes/users/users');
+const userRoutes = require('./src/api/users/users');
 const {PORT} = require("./src/utils/configs");
+const configureBodyParser = require('./src/utils/bodyParserConfiguration');
+const configureViewEngine = require('./src/utils/configureViewEngine');
+const homeRoutes = require('./src/routes/home/home');
+const adminRoutes = require('./src/routes/admin/admin');
+const path = require("path");
 
 const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.get('/', (req, res) => {
-    res.send('Initial page');
-});
+app.use(express.static(path.join(__dirname, 'public')));
+configureBodyParser(app);
+configureViewEngine(app);
+app.use(homeRoutes);
+app.use(adminRoutes);
+// apis
 app.use(userRoutes);
 app.listen(PORT, () => {
-    console.log('Server is running!');
+    console.log(`Visit http://localhost:${PORT}/`);
 });

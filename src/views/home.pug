@@ -1,0 +1,9 @@
+extends partials/layout
+block content
+        div.container
+         h1.usersHeading Users
+                 ul.usersListWrapper
+                         each user in users
+                                 li.userListItem
+                                         h2= user.name
+                                         p Age: #{user.age}
