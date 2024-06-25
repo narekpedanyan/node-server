@@ -130,3 +130,5 @@ plop-templates
 # Windows specific
 Thumbs.db
 .idea
+.gitignore
+package-lock.json
